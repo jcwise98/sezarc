@@ -5,12 +5,13 @@ import pandas as pd
 
 # Filters a pandas 'data_frame' for values with the date between 'start' and 'end'
 # date_column is the name of the column storing the date (default 'Date')
-# Returns the filtered data frame. If no start and end is specified returns the original data frame
+# Returns the filtered data frame between the 2 given dates
 def filter_date(data_frame, start=None, end=None, date_column='Date'):
-    if start and end:
-        return data_frame[(data_frame[date_column] > start) & (data_frame[date_column] < end)]
-    else:
-        return data_frame
+    if start:
+        data_frame = data_frame[data_frame[date_column] > start]
+    if end:
+        data_frame = data_frame[data_frame[date_column] < end]
+    return data_frame
 
 
 # Gets the frequencies of each unique value for the 'column' inside of the given 'data_frame'
@@ -25,7 +26,7 @@ def create_frequency_data(data_frame, column):
 # Creates a frequency bar plot and saves it with the given 'output' name
 def create_frequency_figure(data_frame, column, start, end, output):
     df = filter_date(data_frame, start, end)
-    title = '%s (%s to %s)' % (column, start, end) if start and end else column
+    title = '%s (%s to %s)' % (column, start, end) if start or end else column
     x, y = create_frequency_data(df, column)
     fig, ax = plt.subplots()
     bars = plt.bar(x, y)
@@ -45,7 +46,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Create a graph of data frequencies, filterable by date')
     parser.add_argument('file', type=str, help='the path to the excel file')
     parser.add_argument('column', type=str, help='the column name to collect data from in the excel file')
-    parser.add_argument('output', type=str, help='the path to the output image (default ./graph.png)')
+    parser.add_argument('output', type=str, help='the path to the output image')
     parser.add_argument('--start', type=str, help='the start date in the format: (d/m/y)')
     parser.add_argument('--end', type=str, help='the end date in the format: (d/m/y)')
     args = parser.parse_args()
