@@ -1,6 +1,7 @@
 import argparse
 import matplotlib.pyplot as plt
 import pandas as pd
+import time
 
 # Filters a pandas 'data_frame' for values with the date between 'start' and 'end'
 # date_column is the name of the column storing the date (default 'Date')
@@ -20,7 +21,7 @@ def create_frequency_data(data_frame, column):
     y = data_frame[column].value_counts()
     return x, y
 
-def heat_map_plot(self, file):
+def heat_map_plot(file):
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
     data = pd.read_excel(file)
@@ -35,6 +36,7 @@ def heat_map_plot(self, file):
     z = data['Depth in Meters'].values.flatten()
     ax.scatter(x, y, z)
     fig.show()
+    return fig
 
 # Filters the given data frame with entries only between start and end
 # Creates a frequency bar plot and saves it with the given 'output' name
@@ -57,16 +59,16 @@ def create_frequency_figure(data_frame, column, start, end, output):
 
 
 if __name__ == "__main__":
-    # heat_map_plot("MarinelandThru30June2020_FormattedWithDepth.xlsx")
+    heat_map_plot("MarinelandThru30June2020_FormattedWithDepth.xlsx")
     #
-    parser = argparse.ArgumentParser(description='Create a graph of data frequencies, filterable by date')
-    parser.add_argument('file', type=str, help='the path to the excel file')
-    parser.add_argument('column', type=str, help='the column name to collect data from in the excel file')
-    parser.add_argument('output', type=str, help='the path to the output image')
-    parser.add_argument('--start', type=str, help='the start date in the format: (d/m/y)')
-    parser.add_argument('--end', type=str, help='the end date in the format: (d/m/y)')
-    args = parser.parse_args()
-
-    data = pd.read_excel(args.file)
-    create_frequency_figure(data, args.column, args.start, args.end, args.output)
-    print(args.output, "successfully generated.")
+    # parser = argparse.ArgumentParser(description='Create a graph of data frequencies, filterable by date')
+    # parser.add_argument('file', type=str, help='the path to the excel file')
+    # parser.add_argument('column', type=str, help='the column name to collect data from in the excel file')
+    # parser.add_argument('output', type=str, help='the path to the output image')
+    # parser.add_argument('--start', type=str, help='the start date in the format: (d/m/y)')
+    # parser.add_argument('--end', type=str, help='the end date in the format: (d/m/y)')
+    # args = parser.parse_args()
+    #
+    # data = pd.read_excel(args.file)
+    # create_frequency_figure(data, args.column, args.start, args.end, args.output)
+    # print(args.output, "successfully generated.")

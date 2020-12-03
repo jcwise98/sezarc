@@ -2,9 +2,11 @@ from tkinter import *
 from tkinter import filedialog
 from tkinter import messagebox
 from PIL import ImageTk, Image
-
+import grapher
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from openpyxl.workbook import Workbook
 from openpyxl import load_workbook
+
 
 # Useful Vars
 global is_imported
@@ -17,7 +19,7 @@ is_imported = False  # keep track of whether or not a spreadsheet has been impor
 def get_spreadsheet():
     global is_imported
     global first_column
-    filename = filedialog.askopenfilename(initialdir="/",
+    filename = filedialog.askopenfilename(initialdir="",
                                           title="Select a File",
                                           filetypes=(("Excel files",
                                                       "*.xlsx*"),
@@ -32,6 +34,9 @@ def get_spreadsheet():
     first_column = ws['A']
     spreadsheet_info.config(text="Imported Spreadsheet: " + filename)
     is_imported = True
+
+    fig = grapher.heat_map_plot(filename)
+    canvas_heat = FigureCanvas(fig)
 
 
 # Function to display data from spreadsheet
@@ -92,7 +97,7 @@ menu.add_cascade(label="About", menu=aboutMenu)
 
 # File Menu Options
 fileMenu.add_command(label="Import Spreadsheet", command=get_spreadsheet)
-fileMenu.add_command(label="Import Enclosure", command=get_image)
+fileMenu.add_command(label="Import Habitat", command=get_image)
 
 # Edit Menu Options
 
