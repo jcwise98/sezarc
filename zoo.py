@@ -309,7 +309,8 @@ class HeatMapPage(tk.Frame):
 
         for thang in collections:
             thang.set_offset_position('data')
-            potential_pairs.append(thang.get_offsets()[event_index].data[0])
+            if len(thang.get_offsets()) > event_index:
+                potential_pairs.append(thang.get_offsets()[event_index].data[0])
 
         for thang in collections:
             thang.set_offset_position('screen')
