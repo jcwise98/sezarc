@@ -1,7 +1,10 @@
 import argparse
+import tkinter
+
 import matplotlib.pyplot as plt
 import pandas as pd
 import time
+import dialogbox
 
 # Filters a pandas 'data_frame' for values with the date between 'start' and 'end'
 # date_column is the name of the column storing the date (default 'Date')
@@ -25,6 +28,34 @@ def heat_map_plot(file):
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
     data = pd.read_excel(file)
+    #
+    # root = tkinter.Tk()
+    # dialog_box = dialogbox.DialogBox
+    #
+    # dialog_box.root = root
+    #
+    # D = {'user': 'Bob'}
+    # string_var = tkinter.StringVar()
+    #
+    # b_login = tkinter.Button(root, text= 'Log in')
+    # b_login['command'] = lambda: dialog_box('Name?', string_var, options=["Derek", "Bobby"])
+    # b_login.pack()
+    #
+    # b_loggedin = tkinter.Button(root, text='Current User')
+    # b_loggedin['command'] = lambda: dialog_box(string_var.get())
+    # b_loggedin.pack()
+    #
+    # root.mainloop()
+    #
+    # print("testing shit...")
+    # print(D['user'])
+    # print(data.index)
+    # print("-------------------------------------")
+    # print(data.columns)
+    # print("-------------------------------------")
+    # print(data.dtypes)
+    # print("-------------------------------------")
+    # print(data.info(verbose='True'))
 
     data = data.loc[(data['Channel Type'] == 'Interval') &
                     (pd.notnull(data['Space Use Coordinate X'])) &
@@ -34,6 +65,14 @@ def heat_map_plot(file):
     x = data['Space Use Coordinate X'].values.flatten()
     y = data['Space Use Coordinate Y'].values.flatten()
     z = data['Depth in Meters'].values.flatten()
+
+    print("I want to die.")
+    print(x)
+    print("I want to die.")
+    print(y)
+    print("I want to die.")
+    print(z)
+
     ax.scatter(x, y, z)
     fig.show()
     return fig
