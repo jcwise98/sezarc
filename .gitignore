@@ -1,0 +1,4 @@
+*.gradle
+*.idea
+_pycache__/
+*.pyc

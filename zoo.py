@@ -6,6 +6,10 @@ from heatmap import HeatMapOptionsBox
 import matplotlib.cm as cm
 from scipy import stats
 
+#TODO: add point data_frame index print when clicking a point
+#TODO: add area for each shark to display on heatmaps
+#TODO: kernel density checkbox to change the points into a kernel density function plot thing
+
 matplotlib.use("TkAgg")
 
 import matplotlib.pyplot as plt
