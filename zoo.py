@@ -60,7 +60,7 @@ class ZooMapper(tk.Tk):
         # view_menu.add_command(label="Display Coordinates", command=self.get_list)
         # view_menu.add_command(label="Hide Coordinates", command=self.remove_list)
 
-        # About Menu Options
+        # About Menu Options 69
         about_menu.add_command(label="Developers", command=self.print_dev)
 
         container = tk.Frame(self)
