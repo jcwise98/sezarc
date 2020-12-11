@@ -6,9 +6,9 @@ from heatmap import HeatMapOptionsBox
 import matplotlib.cm as cm
 from scipy import stats
 
-#TODO: add point data_frame index print when clicking a point
-#TODO: add area for each shark to display on heatmaps
-#TODO: kernel density checkbox to change the points into a kernel density function plot thing
+# TODO: add point data_frame index print when clicking a point
+# TODO: add area for each shark to display on heatmaps
+# TODO: kernel density checkbox to change the points into a kernel density function plot thing
 
 matplotlib.use("TkAgg")
 
@@ -89,7 +89,6 @@ class ZooMapper(tk.Tk):
 
         return plot_options['heatmap_options']
 
-
     # Function for opening the
     # file explorer window
     def get_spreadsheet(self):
@@ -100,14 +99,12 @@ class ZooMapper(tk.Tk):
                                                          ("all files",
                                                           "*.*")))
 
-
         data = pd.read_excel(filename)
 
         heatmap_options = self.get_plot_creation_options(data)
         heat_frame = HeatMapPage(self.container_please, self, data, heatmap_options)
         heat_frame.grid(row=0, column=0, sticky="nsew")
         self.frames[HeatMapPage] = heat_frame
-
 
     def print_dev(self):
         messagebox.showinfo("Developers",
@@ -184,7 +181,7 @@ class HeatMapPage(tk.Frame):
         self.old_z = -2
 
         if options is not None:
-            self.unit_string=options['unit_type']
+            self.unit_string = options['unit_type']
 
         if (data_frame is not None) and (options is not None):
             tk.Frame.__init__(self, parent)
