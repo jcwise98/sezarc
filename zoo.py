@@ -206,7 +206,8 @@ class HeatMapPage(tk.Frame):
             cal_ratio = self.get_calibration_ratio(data_frame, options)
 
             # filtering the data frame into the row range specified in options
-            data_frame = data_frame.iloc[int(options['begin_index']):int(options['end_index'])]
+            if options['begin_index'] != '' and options['end_index'] != '':
+                data_frame = data_frame.iloc[int(options['begin_index']):int(options['end_index'])]
 
             # loop through column filters and filter data frame
             for k, v in options['filters'].items():
