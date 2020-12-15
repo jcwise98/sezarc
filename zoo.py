@@ -3,6 +3,7 @@ from tkinter.ttk import Style
 import matplotlib
 import pandas as pd
 import numpy as np
+import scipy.spatial as ss
 import PIL.Image
 from PIL import ImageTk
 
@@ -105,7 +106,7 @@ class ZooMapper(tk.Tk):
                                                           "*.xlsx*"),
                                                          ("all files",
                                                           "*.*")))
-        print(filename)
+        # print(filename)
         data = pd.read_excel(filename)
 
         heatmap_options = self.get_plot_creation_options(data)
@@ -283,7 +284,8 @@ class HeatMapPage(tk.Frame):
                     if self.z_col != '':
                         self.z = df_filtered[self.z_col].values.flatten()
                         self.z *= -1
-                        self.ax.scatter(self.x, self.y, self.z, color=color, label=name)
+                        hull = ss.ConvexHull(np.vstack((self.x,self.y,self.z)).T)
+                        self.ax.scatter(self.x, self.y, self.z, color=color, label=name+": "+str(hull.volume) + " " + options['unit_type'])
                     else:
                         self.ax.scatter(self.x, self.y, color=color, label=name, picker=True)
                 self.ax.legend()
@@ -320,7 +322,7 @@ class HeatMapPage(tk.Frame):
         min_val = arr[0]
         for x in arr:
             if x < min_val:
-                min_val=x
+                min_val = x
         return min_val
 
     def get_max(self, arr):
@@ -331,15 +333,15 @@ class HeatMapPage(tk.Frame):
         return max_val
 
     def onpick3(self, event):
-        print("xdata: ", event.mouseevent.xdata)
-        print("ydata: ", event.mouseevent.ydata)
+        # print("xdata: ", event.mouseevent.xdata)
+        # print("ydata: ", event.mouseevent.ydata)
 
         ind = event.ind
         x_data = event.mouseevent.xdata
         y_data = event.mouseevent.ydata
 
         real_x, real_y = self.select_closest_point_2d(x_data, y_data, self.ax.collections, event.ind)
-        print('onpick3 scatter:', ind, real_x, real_y)
+        # print('onpick3 scatter:', ind, real_x, real_y)
         if self.old_x != -1 and self.old_y != -1:
             self.label_var.set("Distance Between Last Two Selected Points: " + str(
                 np.sqrt((self.old_x - real_x) * (self.old_x - real_x)
