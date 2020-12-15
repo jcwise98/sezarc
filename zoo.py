@@ -117,7 +117,6 @@ class ZooMapper(tk.Tk):
     def print_dev(self):
         messagebox.showinfo("Developers",
                             "Farah Aljishi\nDerek Baum\nRyan Bonacquisti\nDebra Lymon\nNtsee Ndingwan\nJake Wise")
-        # print("Farah Aljishi\nDerek Baum\nRyan Bonacquisti\nDebra Lymon\nNtsee Ndingwan\nJake Wise")
 
     def show_frame(self, cont):
         print("called")
@@ -194,13 +193,13 @@ class HeatMapPage(tk.Frame):
         self.old_x = -1
         self.old_y = -1
         self.old_z = -2
-        self.imagename = ''
+        self.image_name = ''
 
         if options is not None:
             self.unit_string = options['unit_type']
             if options['habitat_image'] != '':
-                self.imagename = options['habitat_image']
-                self.img = mpimg.imread(imagename)
+                self.image_name = options['habitat_image']
+                self.img = mpimg.imread(self.image_name)
 
         if (data_frame is not None) and (options is not None):
             tk.Frame.__init__(self, parent)
@@ -259,8 +258,7 @@ class HeatMapPage(tk.Frame):
 
             self.ax.set_xlabel(options['unit_type'])
             self.ax.set_ylabel(options['unit_type'])
-            if self.imagename != '':
-                self.ax.imshow(self.img)
+
             #self.ax.set_xlim(0,16)
             #self.ax.set_ylim(0,16)
 
@@ -294,11 +292,14 @@ class HeatMapPage(tk.Frame):
                 if self.z_col != '':
                     self.z = data_frame[self.z_col].values.flatten()
                     self.z *= -1
-                    ax = fig.add_subplot(111, projection='3d')
-                    ax.scatter(self.x, self.y, self.z, color='#1f77b4')
+                    self.ax = fig.add_subplot(111, projection='3d')
+                    self.ax.scatter(self.x, self.y, self.z, color='#1f77b4')
                 else:
-                    ax = fig.add_subplot(111)
-                    ax.scatter(self.x, self.y, color='#1f77b4', picker=True)
+                    self.ax = fig.add_subplot(111)
+                    self.ax.scatter(self.x, self.y, color='#1f77b4', picker=True)
+
+            if self.image_name != '' and self.z_col == '':
+                self.ax.imshow(self.img, extent=[self.get_min(self.x),self.get_max(self.x),self.get_min(self.y),self.get_max(self.y)])
 
             canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
             toolbar = NavigationToolbar2Tk(canvas, self)
@@ -307,6 +308,20 @@ class HeatMapPage(tk.Frame):
             fig.canvas.mpl_connect('pick_event', self.onpick3)
         else:
             tk.Frame.__init__(self, parent)
+
+    def get_min(self, arr):
+        min_val = arr[0]
+        for x in arr:
+            if x < min_val:
+                min_val=x
+        return min_val
+
+    def get_max(self, arr):
+        max_val = arr[0]
+        for x in arr:
+            if x > max_val:
+                max_val = x
+        return max_val
 
     def onpick3(self, event):
         print("xdata: ", event.mouseevent.xdata)

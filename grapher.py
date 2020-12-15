@@ -16,7 +16,6 @@ def filter_date(data_frame, start=None, end=None, date_column='Date'):
         data_frame = data_frame[data_frame[date_column] < end]
     return data_frame
 
-
 # Gets the frequencies of each unique value for the 'column' inside of the given 'data_frame'
 # Returns the names, and frequencies
 def create_frequency_data(data_frame, column):
