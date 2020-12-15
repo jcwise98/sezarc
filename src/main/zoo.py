@@ -7,11 +7,9 @@ import scipy.spatial as ss
 import PIL.Image
 from PIL import ImageTk
 
-import dialogbox
-from heatmap import HeatMapOptionsBox
+from src.main.heatmap import HeatMapOptionsBox
 import matplotlib.cm as cm
 import matplotlib.image as mpimg
-from scipy import stats
 
 # TODO: add point data_frame index print when clicking a point
 # TODO: add area for each shark to display on heatmaps
@@ -19,7 +17,6 @@ from scipy import stats
 
 matplotlib.use("TkAgg")
 
-import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib.figure import Figure
 import PIL.Image
@@ -29,8 +26,6 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog
 from tkinter import messagebox
-from openpyxl.workbook import Workbook
-from openpyxl import load_workbook
 
 LARGE_FONT = ("Fixedsys", 24)
 BUTTON_FONT = ('Calibiri', 14, 'bold')

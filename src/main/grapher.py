@@ -4,7 +4,6 @@ import tkinter
 import matplotlib.pyplot as plt
 import pandas as pd
 import time
-import dialogbox
 
 # Filters a pandas 'data_frame' for values with the date between 'start' and 'end'
 # date_column is the name of the column storing the date (default 'Date')
