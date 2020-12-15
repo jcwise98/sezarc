@@ -4,6 +4,7 @@ import numpy as np
 import dialogbox
 from heatmap import HeatMapOptionsBox
 import matplotlib.cm as cm
+import matplotlib.image as mpimg
 from scipy import stats
 
 # TODO: add point data_frame index print when clicking a point
@@ -52,7 +53,7 @@ class ZooMapper(tk.Tk):
 
         # File Menu Options
         file_menu.add_command(label="Import Spreadsheet", command=self.get_spreadsheet)
-        # file_menu.add_command(label="Import Habitat", command=self.get_image)
+        #file_menu.add_command(label="Import Habitat", command=self.get_image)
 
         # Edit Menu Options
 
@@ -60,7 +61,7 @@ class ZooMapper(tk.Tk):
         # view_menu.add_command(label="Display Coordinates", command=self.get_list)
         # view_menu.add_command(label="Hide Coordinates", command=self.remove_list)
 
-        # About Menu Options 69
+        # About Menu Options
         about_menu.add_command(label="Developers", command=self.print_dev)
 
         container = tk.Frame(self)
@@ -182,6 +183,8 @@ class HeatMapPage(tk.Frame):
 
         if options is not None:
             self.unit_string = options['unit_type']
+            imagename = options['habitat_image']
+            self.img = mpimg.imread(imagename)
 
         if (data_frame is not None) and (options is not None):
             tk.Frame.__init__(self, parent)
@@ -200,7 +203,9 @@ class HeatMapPage(tk.Frame):
             button1.pack()
 
             fig = Figure()
+
             canvas = FigureCanvasTkAgg(fig, self)
+            #canvas.create_image(20, 20, anchor=NW, image=options['habitat_image'])
             canvas.draw()
 
             cal_ratio = self.get_calibration_ratio(data_frame, options)
@@ -238,6 +243,9 @@ class HeatMapPage(tk.Frame):
 
             self.ax.set_xlabel(options['unit_type'])
             self.ax.set_ylabel(options['unit_type'])
+            self.ax.imshow(self.img)
+            #self.ax.set_xlim(0,16)
+            #self.ax.set_ylim(0,16)
 
             if options['name_column'] != '':
                 names = data_frame[options['name_column']].unique()

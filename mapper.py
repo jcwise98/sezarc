@@ -58,7 +58,7 @@ def remove_list():
 
 # Function to get image for enclosure
 def get_image():
-    imagename = filedialog.askopenfilename(initialdir="/",
+    imagename = filedialog.askopenfilename(initialdir="",
                                           title="Select a File",
                                           filetypes=(("Image files",
                                                       "*.png*"),

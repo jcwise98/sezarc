@@ -1,5 +1,6 @@
 import tkinter
 import pandas
+from PIL import ImageTk, Image
 
 
 class HeatMapOptions:
@@ -30,6 +31,8 @@ class HeatMapOptionsBox(tkinter.Toplevel):
         self.filter_entry_dict = {}
         self.entry_dict_ind = 0
         self.filter_entries_list = []
+
+        self.habitat_image = ''
 
         self.columns_list = data_frame.columns
         print("out here right now")
@@ -121,6 +124,27 @@ class HeatMapOptionsBox(tkinter.Toplevel):
         b_add_new_filter['command'] = lambda: self.add_filter_entry()
         b_add_new_filter.pack()
 
+        b_add_new_filter = tkinter.Button(frm, text='Add Habitat')
+        b_add_new_filter['command'] = lambda: self.get_image()
+        b_add_new_filter.pack(pady=4)
+
+        self.image_column_label = tkinter.Label(frm, text=self.habitat_image)
+        self.image_column_label.pack()
+
+
+    # Function to get image for enclosure
+    def get_image(self):
+        imagename = tkinter.filedialog.askopenfilename(initialdir="",
+                                               title="Select a File",
+                                               filetypes=(("Image files",
+                                                           "*.png*"),
+                                                          ("all files",
+                                                           "*.*")))
+        img = ImageTk.PhotoImage(Image.open(imagename))
+
+        print(imagename)
+        self.habitat_image = imagename
+
     #
     def add_filter_entry(self):
         new_filter_label = tkinter.Label(self.frame, text='Custom Column Filter:')
@@ -155,6 +179,7 @@ class HeatMapOptionsBox(tkinter.Toplevel):
         options['y_column'] = self.y_column_var.get()
         options['z_column'] = self.z_column_var.get()
         options['filters'] = self.filter_entry_dict
+        options['habitat_image'] = self.habitat_image
 
         d, key = out_dict
         print(options)

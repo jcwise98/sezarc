@@ -47,7 +47,6 @@ def heat_map_plot(file):
     #
     # root.mainloop()
     #
-    # print("testing shit...")
     # print(D['user'])
     # print(data.index)
     # print("-------------------------------------")
@@ -66,11 +65,8 @@ def heat_map_plot(file):
     y = data['Space Use Coordinate Y'].values.flatten()
     z = data['Depth in Meters'].values.flatten()
 
-    print("I want to die.")
     print(x)
-    print("I want to die.")
     print(y)
-    print("I want to die.")
     print(z)
 
     ax.scatter(x, y, z)
