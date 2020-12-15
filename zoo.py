@@ -285,7 +285,7 @@ class HeatMapPage(tk.Frame):
                         self.z = df_filtered[self.z_col].values.flatten()
                         self.z *= -1
                         hull = ss.ConvexHull(np.vstack((self.x,self.y,self.z)).T)
-                        self.ax.scatter(self.x, self.y, self.z, color=color, label=name+": "+str(hull.volume) + " " + options['unit_type'])
+                        self.ax.scatter(self.x, self.y, self.z, color=color, label=name+": "+str(hull.volume) + " " + options['unit_type'] + "^3")
                     else:
                         self.ax.scatter(self.x, self.y, color=color, label=name, picker=True)
                 self.ax.legend()
