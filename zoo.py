@@ -180,11 +180,13 @@ class HeatMapPage(tk.Frame):
         self.old_x = -1
         self.old_y = -1
         self.old_z = -2
+        self.imagename = ''
 
         if options is not None:
             self.unit_string = options['unit_type']
-            imagename = options['habitat_image']
-            self.img = mpimg.imread(imagename)
+            if options['habitat_image'] != '':
+                self.imagename = options['habitat_image']
+                self.img = mpimg.imread(imagename)
 
         if (data_frame is not None) and (options is not None):
             tk.Frame.__init__(self, parent)
@@ -243,7 +245,8 @@ class HeatMapPage(tk.Frame):
 
             self.ax.set_xlabel(options['unit_type'])
             self.ax.set_ylabel(options['unit_type'])
-            self.ax.imshow(self.img)
+            if self.imagename != '':
+                self.ax.imshow(self.img)
             #self.ax.set_xlim(0,16)
             #self.ax.set_ylim(0,16)
 
