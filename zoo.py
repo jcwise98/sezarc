@@ -142,6 +142,10 @@ class StartPage(tk.Frame):
                             command=lambda: controller.get_spreadsheet())
         button.pack()
 
+        button3 = ttk.Button(self, text="Graph Page",
+                            command=lambda: controller.show_frame(HeatMapPage))
+        button3.pack()
+
         canvas = Canvas(self, width=600, height=600)
         canvas.pack()
         img = ImageTk.PhotoImage(PIL.Image.open('zoo-logo.png'))
@@ -308,6 +312,9 @@ class HeatMapPage(tk.Frame):
             fig.canvas.mpl_connect('pick_event', self.onpick3)
         else:
             tk.Frame.__init__(self, parent)
+            button1 = ttk.Button(self, text="Back to Home",
+                                 command=lambda: controller.show_frame(StartPage))
+            button1.pack()
 
     def get_min(self, arr):
         min_val = arr[0]
