@@ -1,6 +1,11 @@
+from tkinter.ttk import Style
+
 import matplotlib
 import pandas as pd
 import numpy as np
+import PIL.Image
+from PIL import ImageTk
+
 import dialogbox
 from heatmap import HeatMapOptionsBox
 import matplotlib.cm as cm
@@ -26,8 +31,9 @@ from tkinter import messagebox
 from openpyxl.workbook import Workbook
 from openpyxl import load_workbook
 
-LARGE_FONT = ("Verdana", 12)
-
+LARGE_FONT = ("Fixedsys", 24)
+BUTTON_FONT = ('Calibiri', 14, 'bold')
+BACKGROUND_COLOR = '#f2ffe5'
 
 class ZooMapper(tk.Tk):
 
@@ -75,7 +81,7 @@ class ZooMapper(tk.Tk):
 
         for F in (StartPage, PageOne, PageTwo, HeatMapPage):
             frame = F(container, self)
-
+            frame.config(bg=BACKGROUND_COLOR)
             self.frames[F] = frame
 
             frame.grid(row=0, column=0, sticky="nsew")
@@ -99,11 +105,12 @@ class ZooMapper(tk.Tk):
                                                           "*.xlsx*"),
                                                          ("all files",
                                                           "*.*")))
-
+        print(filename)
         data = pd.read_excel(filename)
 
         heatmap_options = self.get_plot_creation_options(data)
         heat_frame = HeatMapPage(self.container_please, self, data, heatmap_options)
+        heat_frame.config(bg=BACKGROUND_COLOR)
         heat_frame.grid(row=0, column=0, sticky="nsew")
         self.frames[HeatMapPage] = heat_frame
 
@@ -122,25 +129,32 @@ class StartPage(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        label = tk.Label(self, text="Start Page", font=LARGE_FONT)
+
+        label = tk.Label(self, text="Welcome to Zoo Monitor Data Mapper", font=LARGE_FONT, bg=BACKGROUND_COLOR)
         label.pack(pady=10, padx=10)
 
-        button = ttk.Button(self, text="Visit Page 1",
-                            command=lambda: controller.show_frame(PageOne))
+        style = Style()
+        style.configure('TButton', font=BUTTON_FONT,
+                        borderwidth='4')
+        style.map('TButton', foreground=[('active', '!disabled', 'green')],
+                  background=[('active', 'black')])
+
+        button = ttk.Button(self, text="Import Spreadsheet", style="TButton",
+                            command=lambda: controller.get_spreadsheet())
         button.pack()
-
-        button2 = ttk.Button(self, text="Visit Page 2",
-                             command=lambda: controller.show_frame(PageTwo))
-        button2.pack()
-
-        button3 = ttk.Button(self, text="Graph Page",
-                             command=lambda: controller.show_frame(HeatMapPage))
-        button3.pack()
 
         canvas = Canvas(self, width=600, height=600)
         canvas.pack()
+        img = ImageTk.PhotoImage(PIL.Image.open('zoo-logo.png'))
+        canvas.background = img  # Keep a reference in case this code is put in a function.
+        canvas.create_rectangle(0, 0, 600, 600, fill=BACKGROUND_COLOR, outline=BACKGROUND_COLOR)
+        bg = canvas.create_image(0, 0, anchor=tk.NW, image=img)
+
+
         enclosure_image = Label(image="")
         enclosure_image.pack()
+
+
 
 
 class PageOne(tk.Frame):
@@ -197,7 +211,7 @@ class HeatMapPage(tk.Frame):
                 self.label_var.set("3d Graph Page")
             else:
                 self.label_var.set("click points for distance NOTE: doesn't work if you click overlapping points.")
-            self.label = tk.Label(self, textvariable=self.label_var, font=LARGE_FONT)
+            self.label = tk.Label(self, textvariable=self.label_var, font=LARGE_FONT, bg=BACKGROUND_COLOR)
             self.label.pack(pady=10, padx=10)
 
             button1 = ttk.Button(self, text="Back to Home",

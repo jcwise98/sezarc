@@ -1,4 +1,6 @@
 import tkinter
+from tkinter.ttk import Style
+
 import pandas
 from PIL import ImageTk, Image
 
@@ -40,73 +42,74 @@ class HeatMapOptionsBox(tkinter.Toplevel):
         # self.top = tkinter.Toplevel(None)
         frm = tkinter.Frame(self, width=width, height=height, borderwidth=4, relief='ridge')
         self.frame = frm
+        self.frame.config(bg='white')
         # frm.pack_propagate(0)
         frm.pack(fill='both', expand=True)
 
-        self.begin_ind_calibration = tkinter.Label(frm, text='Begin Calibration Point Index')
+        self.begin_ind_calibration = tkinter.Label(frm, text='Begin Calibration Point Index', bg='#f2ffe5')
         self.begin_ind_calibration.pack(pady=4)
 
 
         self.begin_ind_calibration_entry = tkinter.Entry(frm)
         self.begin_ind_calibration_entry.pack(pady=4)
 
-        self.end_ind_calibration = tkinter.Label(frm, text='End Calibration Point Index')
+        self.end_ind_calibration = tkinter.Label(frm, text='End Calibration Point Index', bg='#f2ffe5')
         self.end_ind_calibration.pack(pady=4)
 
         self.end_ind_calibration_entry = tkinter.Entry(frm)
         self.end_ind_calibration_entry.pack(pady=4)
 
-        self.known_distance_label = tkinter.Label(frm, text='Known Distance Between Calibration Points')
+        self.known_distance_label = tkinter.Label(frm, text='Known Distance Between Calibration Points', bg='#f2ffe5')
         self.known_distance_label.pack(pady=4)
 
         self.known_distance_entry = tkinter.Entry(frm)
         self.known_distance_entry.pack(pady=4)
 
-        self.unit_type_label = tkinter.Label(frm, text='Unit of Measurement(plural)')
+        self.unit_type_label = tkinter.Label(frm, text='Unit of Measurement(plural)', bg='#f2ffe5')
         self.unit_type_label.pack(pady=4)
 
         self.unit_type_entry = tkinter.Entry(frm)
         self.unit_type_entry.pack(pady=4)
 
-        self.begin_ind_label = tkinter.Label(frm, text='Begin Index:')
+        self.begin_ind_label = tkinter.Label(frm, text='Begin Index:', bg='#f2ffe5')
         self.begin_ind_label.pack(padx=4, pady=4)
 
         self.begin_ind_entry = tkinter.Entry(frm)
         self.begin_ind_entry.insert(0, '0')
         self.begin_ind_entry.pack(pady=4)
 
-        self.end_ind_label = tkinter.Label(frm, text='End Index:')
+        self.end_ind_label = tkinter.Label(frm, text='End Index:', bg='#f2ffe5')
         self.end_ind_label.pack(padx=4, pady=4)
 
         self.end_ind_entry = tkinter.Entry(frm)
         self.end_ind_entry.insert(0, str(data_frame.index.stop))
         self.end_ind_entry.pack(pady=4)
 
-        self.name_column_label = tkinter.Label(frm, text='Name Column')
+        self.name_column_label = tkinter.Label(frm, text='Name Column', bg='#f2ffe5')
         self.name_column_label.pack(pady=4)
 
         self.name_column_dropdown = tkinter.OptionMenu(frm, self.name_column_var, *self.columns_list)
         self.name_column_dropdown.pack(pady=4)
 
-        self.names_list_label = tkinter.Label(frm, text='List Selected Names seperated by comma')
+        self.names_list_label = tkinter.Label(frm, text='List Selected Names seperated by comma', bg='#f2ffe5')
         self.names_list_label.pack(pady=4)
 
         self.names_list_entry = tkinter.Entry(frm)
         self.names_list_entry.pack(pady=4)
 
-        self.x_column_label = tkinter.Label(frm, text='X Column')
+        self.x_column_label = tkinter.Label(frm, text='X Column', bg='#f2ffe5')
         self.x_column_label.pack(pady=4)
 
         self.x_column_dropdown = tkinter.OptionMenu(frm, self.x_column_var, *self.columns_list)
         self.x_column_dropdown.pack(pady=4)
 
-        self.y_column_label = tkinter.Label(frm, text='Y Column')
+        self.y_column_label = tkinter.Label(frm, text='Y Column', bg='#f2ffe5')
         self.y_column_label.pack(pady=4)
 
         self.y_column_dropdown = tkinter.OptionMenu(frm, self.y_column_var, *self.columns_list)
         self.y_column_dropdown.pack(pady=4)
 
-        self.z_column_label = tkinter.Label(frm, text='Z Column')
+        self.z_column_label = tkinter.Label(frm, text='Z Column', bg='#f2ffe5')
         self.z_column_label.pack(pady=4)
 
         self.z_column_dropdown = tkinter.OptionMenu(frm, self.z_column_var, *self.columns_list)
@@ -116,7 +119,7 @@ class HeatMapOptionsBox(tkinter.Toplevel):
         b_submit['command'] = lambda: self.send_options_to_dict(out_dict)
         b_submit.pack()
 
-        b_cancel = tkinter.Button(frm, text='Cancel')
+        b_cancel = tkinter.Button(frm, text='Cancel', )
         b_cancel['command'] = self.destroy
         b_cancel.pack(padx=4, pady=4)
 
