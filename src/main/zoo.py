@@ -140,11 +140,11 @@ class StartPage(tk.Frame):
 
         button3 = ttk.Button(self, text="Graph Page",
                             command=lambda: controller.show_frame(HeatMapPage))
-        button3.pack()
+        button3.pack(pady=20)
 
-        canvas = Canvas(self, width=600, height=600)
+        canvas = Canvas(self, width=800, height=507) #width and height of the logo.jpg image
         canvas.pack()
-        img = ImageTk.PhotoImage(PIL.Image.open('zoo-logo.png'))
+        img = ImageTk.PhotoImage(PIL.Image.open('logo.jpg'))
         canvas.background = img  # Keep a reference in case this code is put in a function.
         canvas.create_rectangle(0, 0, 600, 600, fill=BACKGROUND_COLOR, outline=BACKGROUND_COLOR)
         bg = canvas.create_image(0, 0, anchor=tk.NW, image=img)
