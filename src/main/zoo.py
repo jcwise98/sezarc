@@ -7,7 +7,7 @@ import scipy.spatial as ss
 import PIL.Image
 from PIL import ImageTk
 
-from src.main.heatmap import HeatMapOptionsBox
+from heatmap import HeatMapOptionsBox
 import matplotlib.cm as cm
 import matplotlib.image as mpimg
 
@@ -36,7 +36,7 @@ class ZooMapper(tk.Tk):
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
 
-        tk.Tk.iconbitmap(self, default="clienticon.ico")
+        tk.Tk.iconbitmap(self, default="resources/clienticon.ico")
         tk.Tk.wm_title(self, "ZooMonitor Data Mapper")
         tk.Tk.wm_geometry(self, "1440x810")
 
@@ -144,7 +144,7 @@ class StartPage(tk.Frame):
 
         canvas = Canvas(self, width=800, height=507) #width and height of the logo.jpg image
         canvas.pack()
-        img = ImageTk.PhotoImage(PIL.Image.open('logo.jpg'))
+        img = ImageTk.PhotoImage(PIL.Image.open('resources/logo.jpg'))
         canvas.background = img  # Keep a reference in case this code is put in a function.
         canvas.create_rectangle(0, 0, 600, 600, fill=BACKGROUND_COLOR, outline=BACKGROUND_COLOR)
         bg = canvas.create_image(0, 0, anchor=tk.NW, image=img)
