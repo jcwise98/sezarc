@@ -7,7 +7,7 @@ import scipy.spatial as ss
 import PIL.Image
 from PIL import ImageTk
 
-from heatmap import HeatMapOptionsBox
+from .heatmap import HeatMapOptionsBox
 import matplotlib.cm as cm
 import matplotlib.image as mpimg
 
@@ -265,9 +265,7 @@ class HeatMapPage(tk.Frame):
             if options['name_column'] != '':
                 names = data_frame[options['name_column']].unique()
                 self.filter_names_from_user_options(names, options)
-                print(names)
                 colors = cm.rainbow(np.linspace(0, 1, len(names)))
-                print(colors)
                 for i in range(len(names)):
                     name = names[i]
                     color = colors[i]
